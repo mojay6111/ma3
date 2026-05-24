@@ -1,0 +1,38 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ma3
+      POSTGRES_PASSWORD: ma3pass
+      POSTGRES_DB: ma3db
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  backend:
+    build: ./backend
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    env_file: .env
+    depends_on:
+      - db
+    volumes:
+      - ./backend:/app
+      - ./ml/models:/app/ml_models
+
+  dashboard:
+    build: ./dashboard
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    env_file: .env
+    depends_on:
+      - backend
+
+volumes:
+  pgdata:

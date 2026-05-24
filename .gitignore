@@ -1,0 +1,66 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Environments
+.env
+.venv
+env/
+venv/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# ML — models are large, exclude binaries
+ml/models/*.joblib
+backend/ml_models/*.joblib
+ml/models/*.png
+ml/data/*.csv
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Node
+node_modules/
+dashboard/.next/
+dashboard/out/
+dashboard/.turbo/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Next.js
+.next/
+out/
+
+# OS
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# Docker
+docker-compose.override.yml
+
+# Logs
+*.log
+logs/
+
+# VSCode
+.vscode/
+*.code-workspace
+
+# Temp fix scripts
+fix_eta_model.py
+fix_eta_model2.py
+backend/ml_models/*.png
