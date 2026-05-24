@@ -270,7 +270,7 @@ Full interactive docs at `http://localhost:8000/docs`
 Developer · Data Scientist · ICT Educator
 Nairobi, Kenya
 
-- GitHub: [@cap-mojay](https://github.com/cap-mojay)
+- GitHub: [@cap-mojay](https://github.com/mojay6111)
 - Built with: FastAPI · Next.js · TensorFlow · XGBoost · Africa's Talking
 
 ---
