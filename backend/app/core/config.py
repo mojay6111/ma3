@@ -10,7 +10,7 @@ class Settings(BaseSettings):
     AT_SENDER_ID: str = "MA3"
     SECRET_KEY: str = "dev_secret"
     DEBUG: bool = True
-    ALLOWED_ORIGINS: str = "http://localhost:3000"
+    ALLOWED_ORIGINS: str = "http://localhost:3000,http://localhost:3001"
 
     class Config:
         env_file = str(ENV_FILE)

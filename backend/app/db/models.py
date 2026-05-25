@@ -93,3 +93,52 @@ class Fare(Base):
     mpesa_ref = Column(String, nullable=True)
     paid_at = Column(DateTime, default=datetime.utcnow)
     trip = relationship("Trip", back_populates="fares")
+
+
+# ── AUTH & SACCO PORTAL ──────────────────────────────────────
+
+class SaccoProfile(Base):
+    __tablename__ = "sacco_profiles"
+    id = Column(String, primary_key=True, default=gen_uuid)
+    name = Column(String, nullable=False)
+    registration_no = Column(String, unique=True, nullable=False)
+    county = Column(String, nullable=False)
+    phone = Column(String, nullable=False)
+    email = Column(String, nullable=False)
+    logo_url = Column(String, nullable=True)
+    cover_url = Column(String, nullable=True)
+    description = Column(String, nullable=True)
+    is_approved = Column(Boolean, default=False)
+    is_active = Column(Boolean, default=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    managers = relationship("ManagerAccount", back_populates="sacco")
+
+
+class ManagerAccount(Base):
+    __tablename__ = "manager_accounts"
+    id = Column(String, primary_key=True, default=gen_uuid)
+    sacco_id = Column(String, ForeignKey("sacco_profiles.id"), nullable=True)
+    name = Column(String, nullable=False)
+    email = Column(String, unique=True, nullable=False)
+    phone = Column(String, unique=True, nullable=False)
+    hashed_password = Column(String, nullable=False)
+    role = Column(String, default="sacco_admin")
+    # roles: superadmin | sacco_admin | sacco_ops
+    is_primary = Column(Boolean, default=True)
+    is_active = Column(Boolean, default=True)
+    otp_code = Column(String, nullable=True)
+    otp_expires = Column(DateTime, nullable=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    sacco = relationship("SaccoProfile", back_populates="managers")
+
+
+class TransferRequest(Base):
+    __tablename__ = "transfer_requests"
+    id = Column(String, primary_key=True, default=gen_uuid)
+    sacco_id = Column(String, ForeignKey("sacco_profiles.id"), nullable=False)
+    from_manager_id = Column(String, ForeignKey("manager_accounts.id"), nullable=False)
+    to_email = Column(String, nullable=False)
+    token = Column(String, nullable=False)
+    is_completed = Column(Boolean, default=False)
+    expires_at = Column(DateTime, nullable=False)
+    created_at = Column(DateTime, default=datetime.utcnow)

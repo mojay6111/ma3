@@ -3,9 +3,13 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.core.config import settings
 from app.core.ws_manager import manager
 from app.db.session import init_db
-from app.api import telemetry, ussd, sms, vehicles, drivers, predict, payments
+from app.api import (
+    telemetry, ussd, sms, vehicles,
+    drivers, predict, payments,
+    auth, admin, transfer
+)
 
-app = FastAPI(title="Ma3 API", version="1.0.0")
+app = FastAPI(title="Ma3 API", version="2.0.0")
 
 app.add_middleware(
     CORSMiddleware,
@@ -22,6 +26,9 @@ app.include_router(vehicles.router)
 app.include_router(drivers.router)
 app.include_router(predict.router)
 app.include_router(payments.router)
+app.include_router(auth.router)
+app.include_router(admin.router)
+app.include_router(transfer.router)
 
 @app.on_event("startup")
 async def startup():
@@ -38,4 +45,4 @@ async def websocket_endpoint(ws: WebSocket):
 
 @app.get("/")
 async def root():
-    return {"status": "Ma3 iko sawa ✓", "docs": "/docs"}
+    return {"status": "Ma3 iko sawa ✓", "version": "2.0.0", "docs": "/docs"}
