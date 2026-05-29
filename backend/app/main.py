@@ -6,7 +6,7 @@ from app.db.session import init_db
 from app.api import (
     telemetry, ussd, sms, vehicles,
     drivers, predict, payments,
-    auth, admin, transfer
+    auth, admin, transfer, routes
 )
 
 app = FastAPI(title="Ma3 API", version="2.0.0")
@@ -29,6 +29,7 @@ app.include_router(payments.router)
 app.include_router(auth.router)
 app.include_router(admin.router)
 app.include_router(transfer.router)
+app.include_router(routes.router)
 
 @app.on_event("startup")
 async def startup():
