@@ -64,3 +64,4 @@ logs/
 fix_eta_model.py
 fix_eta_model2.py
 backend/ml_models/*.png
+startup.md
